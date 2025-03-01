@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\VO\SlotSettings;
+use App\Models\Game;
+use App\Services\GameProvider;
 use Illuminate\Http\Request;
 
 class GameController extends Controller
@@ -12,17 +13,16 @@ class GameController extends Controller
         return view("game/index");
     }
 
-    public function view()
+    public function view(Game $game, GameProvider $provider)
     {
-        $settings = new SlotSettings();
         return view(
             "game/view",
-            ['settings' => $settings]
+            ['reels' => $provider->getScreen($game->reels, 9)]
         );
     }
 
-    public function spin()
+    public function spin(GameProvider $provider, Request $request): array
     {
-
+        return [];
     }
 }

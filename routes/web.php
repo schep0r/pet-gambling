@@ -6,4 +6,4 @@ use App\Http\Controllers\GameController;
 
 Route::get('/', [HomepageController::class, 'index']);
 Route::get('/games', [GameController::class, 'index']);
-Route::get('/games/1', [GameController::class, 'view']);
+Route::get('/games/{game}', [GameController::class, 'view']);

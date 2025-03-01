@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="flex flex-row">
-        @foreach ($settings->getReel()->getStrips() as $strip)
+        @foreach ($reels as $reel)
             <div class="basis-1/5">
-                @foreach($strip as $element)
+                @foreach($reel as $element)
                     <p class="text-center">
                         {{ $element }}
                     </p>
