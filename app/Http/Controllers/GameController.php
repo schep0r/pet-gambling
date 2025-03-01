@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Game;
 use App\Services\GameProvider;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class GameController extends Controller
 {
@@ -17,12 +19,21 @@ class GameController extends Controller
     {
         return view(
             "game/view",
-            ['reels' => $provider->getScreen($game->reels, 9)]
+            [
+                'game' => $game,
+                'reels' => $provider->getScreen($game->reels, 9)
+            ]
         );
     }
 
-    public function spin(GameProvider $provider, Request $request): array
+    public function spin(Game $game, GameProvider $provider): View
     {
-        return [];
+        return view(
+            "game/view",
+            [
+                'game' => $game,
+                'reels' => $provider->spin($game->reels, 9)
+            ]
+        );
     }
 }

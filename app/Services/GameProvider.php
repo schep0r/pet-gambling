@@ -4,14 +4,25 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Models\Game;
 use Illuminate\Database\Eloquent\Collection;
 
 class GameProvider implements GameProviderInterface
 {
-    public function spin(Game $game): array
+    public function spin(Collection $reels, int $length): array
     {
-        return [];
+        $result = [];
+
+        foreach ($reels as $reel) {
+            $reelElements = $reel->values;
+            $offset = mt_rand(1, count($reelElements));
+            $elements =  array_merge(
+                $reelElements,
+                array_splice($reelElements, 0, $length)
+            );
+            $result[] = array_slice($elements, $offset, $length);
+        }
+
+        return $result;
     }
 
     public function getScreen(Collection $reels, int $length): array
